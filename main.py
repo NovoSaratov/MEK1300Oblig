@@ -6,7 +6,11 @@ def guess_number():
     max_attempts = 5
 
     while True:
-        user_guess = int(input("Guess a number between 1 and 100: "))
+        try:
+            user_guess = int(input("Guess a number between 1 and 100: "))
+        except ValueError:
+            print("please enter a number")
+            continue
         attempts += 1
 
         if user_guess < number:
@@ -19,11 +23,19 @@ def guess_number():
 
         if attempts >= max_attempts:
             print(f"Sorry, you've used all {max_attempts} attempts. The number was {number}.")
-            play_again = input("Do you want to play again? (yes/no): ")
-            if play_again == "yes":
-                guess_number()
-            elif play_again == "no":
-                break
+            while True:
+                play_again = input("Do you want to play again? (yes/no): ").lower()
+
+                if play_again == "yes":
+                    guess_number()
+                    break
+                elif play_again == "no":
+                    break
+                else:
+                    print("Error: Please enter 'yes' or 'no'.")
+
+            break
+
 
 
 guess_number()
